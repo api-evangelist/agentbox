@@ -1,0 +1,110 @@
+aid: agentbox
+url: https://raw.githubusercontent.com/api-evangelist/agentbox/refs/heads/main/apis.yml
+name: Agentbox
+kind: company
+description: Agentbox - rebranded Reapit Sales after its acquisition by the UK-headquartered
+  proptech group Reapit - is an Australian real estate CRM and sales platform used by
+  residential sales agencies across Australia and New Zealand, covering contacts and
+  prospecting, listing management, appraisals, vendor management, marketing, agency
+  websites, and a mobile agent app. Its position in the value chain is the agency
+  system of record and, critically, the portal uploader - Agentbox is the system that
+  pushes an agency's for-sale and for-rent listings out to realestate.com.au,
+  domain.com.au, allhomes, commercialrealestate.com.au and dozens of other Australian
+  portals, which in the Australian market is the REAXML feed seam rather than an MLS.
+  Its API posture is honest but closed - a production API gateway is live at
+  api.agentboxcrm.com.au (Tyk, HTTP 401 "Authorization field missing" to anonymous
+  callers, authenticated with an X-API-Key header alongside a Client ID and Office ID),
+  but there is no public developer portal, no published reference, and no downloadable
+  machine-readable contract. Access is application-approval only - every third party
+  must complete the Reapit Sales Integrator Application and be reviewed before an
+  agency's API Key, Client ID and Office ID are issued by support. There is no RESO
+  Web API or Data Dictionary certification, no OData $metadata document, and no
+  Universal Property Identifier - RESO is a North American MLS regime with no
+  presence in this Australian vendor's surface - and no open data is published.
+accessModel:
+  pricing: paid
+  onboarding: application-approval
+  trial: false
+  try_now: false
+  public: false
+  label: Paid - integrator application required
+  confidence: high
+  source:
+  - https://www.agentbox.com.au/integrator-application
+  - https://api.agentboxcrm.com.au/
+  generated: '2026-07-26'
+  method: probed
+image: https://agentboxcdn.com.au/assets/img/agentbox/favicon-192x192.png
+tags:
+- Real Estate
+- Australia
+- Property Listings
+- PropTech
+- CRM
+- REAXML
+- Portal Feeds
+- Rentals
+- Commercial Real Estate
+- New Zealand
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis:
+- aid: agentbox:agentbox-api
+  name: Agentbox API
+  description: The production Agentbox (Reapit Sales) REST API used by approved integration
+    partners to read and write agency CRM data - contacts, listings, properties, staff
+    and offices. The host is live and fronted by a Tyk gateway - an anonymous request
+    returns HTTP 401 with {"error":"Authorization field missing"}, and supplying an
+    X-API-Key header advances the request past the gateway, confirming API-key
+    authentication. Third-party integration guides (Domo, Auctions Live, WordPress
+    connectors) consistently describe the same credential triple - API Key, Client ID
+    and Office ID - issued per agency office by Reapit Sales support. No public API
+    reference, OpenAPI/Swagger document or Postman collection is published - every
+    documentation path probed on the gateway returned 401 or 404 - so no machine-readable
+    contract could be harvested. Access requires completing the Integrator Application
+    and being approved.
+  humanURL: https://www.agentbox.com.au/integrator-application
+  baseURL: https://api.agentboxcrm.com.au
+  tags:
+  - Real Estate
+  - CRM
+  - Property Listings
+  - Australia
+  properties:
+  - type: Onboarding
+    url: https://www.agentbox.com.au/integrator-application
+  - type: SupportPage
+    url: https://help.agentboxcrm.com.au/home
+  - type: SupportEmail
+    url: mailto:sales@agentbox.com.au
+common:
+- type: Website
+  url: https://www.agentbox.com.au/
+- type: Blog
+  url: https://www.agentbox.com.au/blog
+- type: SupportPage
+  url: https://help.agentboxcrm.com.au/home
+- type: Documentation
+  url: https://help.agentboxcrm.com.au/reapit-integrations
+- type: Documentation
+  url: https://help.agentboxcrm.com.au/portals
+- type: Onboarding
+  url: https://www.agentbox.com.au/integrator-application
+- type: Plans
+  url: https://www.agentbox.com.au/plans-inclusions
+- type: TermsOfService
+  url: https://www.agentbox.com.au/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.agentbox.com.au/privacy
+- type: About
+  url: https://www.agentbox.com.au/about-us
+- type: Contact
+  url: https://www.agentbox.com.au/contact-us
+- type: Twitter
+  url: https://twitter.com/agentboxau
+- type: ParentCompany
+  url: https://www.reapit.com.au/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

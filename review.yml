@@ -1,0 +1,191 @@
+aid: agentbox
+name: Agentbox
+review:
+  question: Does Agentbox expose a public, self-serve, machine-readable API surface, and what is its RESO
+    posture?
+  answer: false
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: Australia
+  tier: crm-transaction-tech
+  primaryDomain: agentbox.com.au
+resoAndAccess:
+  resoPosture: No RESO reference found. Agentbox (Reapit Sales) is an Australian residential sales CRM
+    and holds no RESO Web API certification and no RESO Data Dictionary certification at any version.
+    No RESO certification directory listing was located, no /Reso or OData collection path is exposed
+    on the API gateway, no $metadata document is served (https://api.agentboxcrm.com.au/$metadata returned
+    HTTP 401 from the Tyk gateway, i.e. the path is not anonymously served and there is no evidence it
+    exists), and no RESO Universal Property Identifier (UPI) appears anywhere in the vendor's public surface.
+    Case-insensitive greps of the marketing site (www.agentbox.com.au) and the customer knowledge base
+    (help.agentboxcrm.com.au) for "reso" returned only the word "resources". This is the expected honest
+    answer for Australia - RESO is a North American MLS-body regime and there is no MLS in Australia at
+    all.
+  resoCertified: false
+  australianEquivalent: 'The functioning machine-readable listing contract in this market is REAXML, REA
+    Group''s XML property feed, consumed by realestate.com.au and mirrored by the wider portal ecosystem.
+    Agentbox operates as the agency''s portal uploader rather than as a data API: its knowledge base documents
+    "Portal Exports" and lists the portals it pushes to, including realestate.com.au, domain.com.au, allhomes.com.au,
+    commercialrealestate.com.au, homely.com.au, homesales.com.au, agentpoint.com.au, realestateview/businessview.com.au
+    and others. New portal feeds are not self-provisioned - the portal or integrator must email a portal
+    feed request to support@agentbox.com.au and the Agentbox support team activates it, and the agency
+    must already hold an account with the recipient portal. Evidence: https://help.agentboxcrm.com.au/portals
+    (HTTP 200) and https://help.agentboxcrm.com.au/portal-exports (HTTP 200).'
+  accessGate: application-approval
+  whatADeveloperMustSignOrJoin: 'A third party must complete the Reapit Sales (formerly Agentbox) Integrator
+    Application at https://www.agentbox.com.au/integrator-application (HTTP 200), which states verbatim:
+    "All third parties who wish to integrate with Reapit Sales are required to complete our application
+    process. All integration applications are reviewed by our team to ensure only the highest quality
+    integrations are made available to our clients." There is no self-serve signup, no sandbox, and no
+    published key issuance flow. Separately, per-agency credentials are issued by support on request -
+    third-party integration guides instruct the agency to email the Reapit | Agentbox support team (salessupportanz@reapit.com,
+    or support@agentbox.com.au for portal feeds) to be issued an API Key, Client ID and Office ID for
+    that office. Access is therefore gated twice: the integrator is approved by the vendor, and each agency
+    customer must separately authorise credentials for its own office data. This is not membership-required
+    (no MLS or board exists to join) and not broker-or-agent-only in the licensing sense, but it is functionally
+    customer-sponsored.'
+  openData: false
+  openDataNote: Agentbox publishes no open dataset of any kind. Listing data in this system belongs to
+    the subscribing agency and is distributed under commercial portal agreements. The Australian open-data
+    counterweight in this sector sits with government bodies, the state land registries, and PEXA's electronic
+    conveyancing rail, none of which Agentbox exposes.
+  authModel: 'API key. The gateway at https://api.agentboxcrm.com.au is Tyk (response header x-generator:
+    tyk.io). An anonymous GET to / returns HTTP 401 with body {"error":"Authorization field missing"}.
+    Sending only X-Client-ID: test still returns 401; sending X-API-Key: test returns HTTP 404 from the
+    backend application ("URL not found" page served from agentboxcdn.com.au) together with x-ratelimit-limit
+    / x-ratelimit-remaining / x-ratelimit-reset headers - confirming that X-API-Key is the header the
+    gateway recognises as the authorization field and that rate limiting is applied per key. Third-party
+    integration documentation pairs that key with a Client ID and an Office ID. No OAuth 2.0 or OpenID
+    Connect surface was found: https://api.agentboxcrm.com.au/.well-known/openid-configuration returned
+    401 (gateway catch-all, not a discovery document) and https://www.agentbox.com.au/.well-known/openid-configuration
+    returned 404.'
+  webhooksEventsSdksPostman: None found publicly. No webhook or event documentation, no vendor SDK or
+    client library, no CLI, no published Postman collection, and no GitHub organisation for Agentbox or
+    Reapit Sales ANZ was located. Absence is the finding - the partner ecosystem is built against endpoints
+    that are not publicly documented.
+probes:
+- url: https://agentbox.com.au
+  status: 200
+  note: Redirects to https://www.agentbox.com.au/ - Webflow-hosted marketing site, now branded "Reapit
+    Sales (formerly Agentbox)".
+- url: https://agentboxcrm.com.au
+  status: 200
+  note: Redirects to www.agentbox.com.au.
+- url: https://api.agentboxcrm.com.au/
+  status: 401
+  note: 'Live API gateway. Body: {"error":"Authorization field missing"}. Response header x-generator:
+    tyk.io. DNS resolves to apigw-prod-215554266.ap-southeast-2.elb.amazonaws.com (AWS ap-southeast-2,
+    Sydney).'
+- url: 'https://api.agentboxcrm.com.au/ [header X-API-Key: test]'
+  status: 404
+  note: Passes the gateway auth check and reaches the backend "URL not found" page; returns x-ratelimit-*
+    headers. Confirms X-API-Key is the auth header.
+- url: 'https://api.agentboxcrm.com.au/ [header X-Client-ID: test]'
+  status: 401
+  note: Still rejected - X-Client-ID alone does not satisfy the gateway.
+- url: https://api.agentboxcrm.com.au/swagger.json
+  status: 401
+  note: No anonymous spec.
+- url: https://api.agentboxcrm.com.au/openapi.json
+  status: 401
+  note: No anonymous spec.
+- url: https://api.agentboxcrm.com.au/api-docs
+  status: 401
+  note: No anonymous spec.
+- url: https://api.agentboxcrm.com.au/$metadata
+  status: 401
+  note: No OData metadata document is anonymously served. Nothing to harvest.
+- url: https://api.agentboxcrm.com.au/docs
+  status: 404
+  note: No docs route on the gateway.
+- url: 'https://api.agentboxcrm.com.au/documentation [header X-API-Key: test]'
+  status: 404
+  note: No documentation route behind the gateway either.
+- url: https://developer.agentbox.com.au
+  status: 0
+  note: Does not resolve.
+- url: https://developers.agentbox.com.au
+  status: 0
+  note: Does not resolve.
+- url: https://docs.agentbox.com.au
+  status: 0
+  note: Does not resolve.
+- url: https://docs.agentboxcrm.com.au
+  status: 404
+  note: Wildcard DNS points every unclaimed subdomain at crm-lb-prod-529458706.ap-southeast-2.elb.amazonaws.com;
+    the 404 confirms no docs host exists.
+- url: https://developer.agentboxcrm.com.au
+  status: 404
+  note: Same wildcard catch-all. No developer portal.
+- url: https://www.agentbox.com.au/api
+  status: 404
+  note: No API path on the marketing site.
+- url: https://www.agentbox.com.au/developers
+  status: 404
+  note: No developers path on the marketing site.
+- url: https://www.agentbox.com.au/integrator-application
+  status: 200
+  note: The access gate. Application form reviewed by the vendor before any integration is approved.
+- url: https://help.agentboxcrm.com.au/home
+  status: 200
+  note: Public customer knowledge base. Sections include Portal Feeds & Integrations, Properties, Contacts,
+    Listing Management. No API article, no endpoint reference, no credential self-service.
+- url: https://help.agentboxcrm.com.au/portals
+  status: 200
+  note: Lists the Australian portals Agentbox exports listings to and instructs portals to email support@agentbox.com.au
+    for a portal feed request.
+- url: https://help.agentboxcrm.com.au/portal-exports
+  status: 200
+  note: Portal feed activation is a support-ticket workflow inside the CRM, not an API.
+- url: https://help.agentboxcrm.com.au/portal-feeds-integrations
+  status: 200
+  note: 'Named productised integrations: CoreLogic/RP Data, HomePrezzo, Campaigntrack, RealHub, TradeMe,
+    Before You Buy, Butn Now, SecureXchange, Diakrit.'
+- url: https://developers.reapit.cloud/
+  status: 200
+  note: Parent group Reapit runs a developer portal (Reapit Foundations), but /openapi.json and /swagger.json
+    both return the SPA HTML shell (content-type text/html), not specifications, and nothing there was
+    found to document the Australian Agentbox API. Recorded as parent-company context only - not claimed
+    as an Agentbox artifact.
+- url: https://www.reapit.com.au/developers
+  status: 404
+  note: No developer path on the Reapit ANZ site.
+findings:
+  summary: 'Agentbox is a genuine, live, production API - and a completely closed one. The gateway answers,
+    the auth scheme is discoverable by probe (X-API-Key on Tyk, paired with a Client ID and Office ID),
+    and a real partner ecosystem calls it. What does not exist is any public developer surface: no developer
+    or docs subdomain, no /api or /developers path, no reference, no OpenAPI or Swagger, no Postman collection,
+    no SDK, no webhook documentation, and no sandbox. The only public artifact about the API is an application
+    form. This is the sector''s central distinction in its purest non-US form. There is no certification
+    to confuse with reachability here, because there is no RESO and no MLS in Australia at all - the machine-readable
+    contract that actually moves listings is REAXML into REA Group''s realestate.com.au and Domain, and
+    Agentbox''s role is to be the uploader on the agency side of that pipe. Where the US argument is "certified
+    but not reachable", the Australian answer at this vendor is "not certified, not documented, and reachable
+    only after two approvals".'
+  apisListed: 1
+  specsHarvested: 0
+  openapiDirectory: false
+  developerPortal: ''
+  portalConfirmed: false
+sources:
+- url: https://www.agentbox.com.au/
+  type: Website
+  note: Confirms the Reapit rebrand and the product family - Sales CRM, Websites, Marketing, Relationship
+    Management, Appraisals, Vendor Management, Prospecting, Mobile App.
+- url: https://www.agentbox.com.au/integrator-application
+  type: Onboarding
+  note: The verbatim access gate for any third-party integration.
+- url: https://help.agentboxcrm.com.au/home
+  type: SupportPage
+  note: Customer knowledge base - the only public documentation, and it documents the product, not the
+    API.
+- url: https://api.agentboxcrm.com.au/
+  type: BaseURL
+  note: Live Tyk-fronted gateway, AWS ap-southeast-2.
+actions:
+  apisYmlCreated: true
+  readmeCreated: true
+  openapiHarvested: false
+  reason: Nothing machine-readable is anonymously retrievable. Every candidate contract path (/swagger.json,
+    /openapi.json, /api-docs, /$metadata) is answered by the gateway's 401 rather than by a document,
+    and no docs host exists. No spec was written or inferred - inventing one from third-party integration
+    guides would fabricate endpoints this review cannot verify.
