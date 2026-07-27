@@ -1,0 +1,53 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of every apis.yml host on 2026-07-26
+summary: >-
+  No /.well-known/ discovery document is served on any Agentbox host. The API
+  gateway (api.agentboxcrm.com.au, Tyk) answers every /.well-known/ path with the
+  same catch-all HTTP 401 "Authorization field missing" - the paths are not
+  anonymously served and there is no evidence any of them exist behind the
+  gateway. The Webflow-hosted marketing site returns an "Invalid .well-known
+  request" 404 page, and the customer knowledge base returns its generic Page Not
+  Found. No security.txt, no OIDC/OAuth discovery, no api-catalog, no ai-plugin.
+  Absence is the finding; nothing was saved because nothing was served.
+hosts:
+- host: https://api.agentboxcrm.com.au
+  role: api-gateway
+  note: 'Tyk gateway (x-generator: tyk.io). All paths answered 401 by the gateway
+    before routing, including /.well-known/*.'
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+- host: https://www.agentbox.com.au
+  role: website
+  note: Webflow-hosted; serves an "Invalid .well-known request" HTML 404 for any
+    .well-known path.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: 'User-Agent: * / Disallow: (empty) / Sitemap:
+      https://www.agentbox.com.au/sitemap.xml - no AI/agent directives.'
+  - path: /llms.txt
+    status: 404
+- host: https://help.agentboxcrm.com.au
+  role: knowledge-base
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /llms.txt
+    status: 404
+found: []

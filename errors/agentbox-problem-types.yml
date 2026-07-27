@@ -1,0 +1,40 @@
+generated: '2026-07-26'
+method: probed
+source: live probes of https://api.agentboxcrm.com.au on 2026-07-26
+format: proprietary
+rfc9457: false
+envelope: '{"error": "<message>"}'
+summary: >-
+  Agentbox publishes no error reference. This catalog records only the error
+  responses observed directly on the production gateway - it is deliberately short
+  because it contains nothing that was not returned by the live host. The gateway
+  layer answers JSON with a flat {"error": "..."} envelope; the backend application
+  behind it does not, returning an HTML error page for an unrouted path, which is
+  an inconsistency an integrator has to handle.
+problems:
+- status: 401
+  title: Authorization field missing
+  media_type: application/json
+  body: '{"error":"Authorization field missing"}'
+  layer: gateway
+  cause: No X-API-Key header on the request. Sending X-Client-ID alone also produces
+    this response.
+  remediation: Send the X-API-Key header issued by Reapit | Agentbox support,
+    together with X-Client-ID.
+  source: live probe GET https://api.agentboxcrm.com.au/ (anonymous)
+- status: 404
+  title: URL not found
+  media_type: text/html
+  layer: backend
+  cause: Request passed the gateway auth check but addressed a path the backend
+    application does not route.
+  remediation: Use a documented resource path. Note the response is an HTML page,
+    not JSON - clients must not assume a JSON error body once past the gateway.
+  source: 'live probe GET https://api.agentboxcrm.com.au/listings?version=2
+    [X-API-Key: test]'
+not_captured:
+  note: >-
+    Validation, authorization and business-rule errors are only reachable with
+    issued credentials and are not documented publicly, so no further problem types
+    are recorded. No error codes have been invented.
+docs: null

@@ -1,0 +1,130 @@
+generated: '2026-07-26'
+method: searched
+source: https://www.agentbox.com.au/future-releases
+scheme: dated-product-releases
+scope: product
+current_version: null
+api_changelog: false
+note: >-
+  Agentbox publishes a dated "Product Updates" feed on its marketing site. It is a
+  product release log - CRM, Websites, Proposals, Mobile App, Analytics - and
+  carries no API change entries, no version numbers and no breaking-change notices.
+  Recorded verbatim from the page as the recent window; the live page remains the
+  source of truth.
+entries:
+- date: '2025-06-30'
+  title: 3 New Agentbox Websites Features
+  area: Websites
+  breaking: false
+  highlights:
+  - Floor area filter on commercial property search results
+  - Customise which details appear on home page property tiles
+  - Modular search results display with configurable data fields
+- date: '2025-05-28'
+  title: Universal Search
+  area: CRM
+  breaking: false
+  highlights:
+  - Category pre-filtering before running a search
+  - Search result counts per category
+  - Keyboard navigation (CTRL+K / CMD+K, arrows, Tab, Enter, ESC)
+  - Listings prioritised ahead of Contacts in results
+- date: '2025-05-28'
+  title: 'New Template: General Proposals'
+  area: Proposals
+  breaking: false
+  highlights:
+  - Proposal creation without a property address
+  - Sections for Team, Services, Marketing Investment and RateMyAgent reviews
+- date: '2025-04-29'
+  title: Custom Fonts in Proposals
+  area: Proposals
+  breaking: false
+  highlights:
+  - Agencies can add their own licensed fonts to specific themes
+  - Separate fonts for headings and body text
+- date: '2025-04-29'
+  title: Customisable cover pages for PDF proposals
+  area: Proposals
+  breaking: false
+  highlights:
+  - '"Set as Cover" is now OFF by default so proposals are shorter'
+  - PDF preview updates instantly on toggle
+- date: '2025-04-29'
+  title: Documents Upload module
+  area: Proposals
+  breaking: false
+  highlights:
+  - Upload .pdf, .doc or .docx up to 10MB per file into Sales and Property
+    Management proposals
+  - Reusable per-user document library
+- date: '2025-04-01'
+  title: CC/BCC - Email Enhancements
+  area: CRM
+  breaking: false
+  highlights:
+  - CC and BCC contacts and team members when sending email from Agentbox
+  - Extends to Sales Trust workflows (Account Sales, Trust Receipts, contracts,
+    documents)
+- date: '2025-03-27'
+  title: Analytics+
+  area: Analytics
+  breaking: false
+  highlights:
+  - Real-time interactive BI reports with monthly trends and year-on-year
+    comparisons
+  - Reports across property, staff and geographical performance
+  - Built on the Reapit Data Warehouse
+  - Available on Premium and Enterprise tiers, activated from the Manage
+    Subscription panel
+- date: '2025-02-25'
+  title: Projects Stocklist
+  area: Reports
+  breaking: false
+  highlights:
+  - Printable Projects Report added to the Stocklist Reports suite
+- date: '2025-01-28'
+  title: 'Empowering Users: Enhanced Profile Flexibility'
+  area: CRM
+  breaking: false
+  highlights:
+  - Users can delete their own email, letter and SMS templates
+  - Users can remove their own access from a contact and delete enquiries logged
+    against incorrect listings
+- date: '2025-01-28'
+  title: Search CRM Appraisals
+  area: Proposals
+  breaking: false
+  highlights:
+  - CRM Appraisal Listing button on Create Proposal pre-fills address, agent and
+    vendor details
+- date: '2025-01-28'
+  title: 'SMS Enhancements: Open Home Confirmations'
+  area: Mobile App
+  breaking: false
+  highlights:
+  - Automated SMS with the scheduled open home date and time from the mobile app
+- date: '2024-11-26'
+  title: 'New Template: Lease Renewal CMA'
+  area: Proposals
+  breaking: false
+- date: '2024-11-26'
+  title: Template Editor Enhancements
+  area: Proposals
+  breaking: false
+  highlights:
+  - Multiple column layouts (single, two, three columns) per module
+- date: '2024-11-26'
+  title: Internal Listing Images
+  area: Listings
+  breaking: false
+  highlights:
+  - Mark listing photos "Excluded from Marketing" or "Public" to control portal and
+    website visibility
+  - Appraisal Walkthrough uploads are flagged Excluded from Marketing automatically
+- date: '2024-10-29'
+  title: PUM In Prospector
+  area: Prospecting
+  breaking: false
+  highlights:
+  - '"Properties Under Management" filter to exclude or target managed properties'

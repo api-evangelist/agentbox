@@ -1,0 +1,76 @@
+generated: '2026-07-26'
+method: derived
+source: live probes plus review.yml findings; no machine-readable spec exists to
+  derive from
+summary: >-
+  Agentbox asserts no standards conformance publicly and holds no certification
+  that could be located. The API is a proprietary JSON/HTTP surface behind a Tyk
+  gateway with header API-key auth - it uses no cross-cutting API standard for
+  auth, errors, discovery or pagination.
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No authorization/token endpoint documented; no
+    /.well-known/oauth-authorization-server (401 gateway catch-all). Auth is a
+    header API key.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns the gateway 401 on the API
+    host and 404 on the website - no discovery document is served.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error envelope is a flat {"error":"..."} JSON object, not
+    application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt on any host.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header observed; no deprecation policy
+    published.
+- id: rfc8615-well-known-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog is not served.
+- id: openapi
+  conforms: false
+  evidence: Every candidate spec path (/openapi.json, /openapi.yaml, /swagger.json,
+    /v1/openapi.json, /swagger/v1/swagger.json, /api-docs, /redoc) is answered by
+    the gateway's 401. No docs host exists.
+- id: graphql
+  conforms: false
+  evidence: /graphql returns the gateway 401 catch-all; no GraphQL surface is
+    documented or introspectable.
+- id: odata
+  conforms: false
+  evidence: $metadata returns 401 from the gateway; no OData collection path is
+    exposed.
+- id: json-api
+  conforms: partial
+  evidence: >-
+    Query filters use the JSON:API-style filter[field]=value bracket form and
+    related resources are pulled with an include parameter, but the response
+    envelope is a proprietary {"response": {...}} wrapper rather than JSON:API
+    data/attributes, and the media type is application/json not
+    application/vnd.api+json.
+- id: reso-web-api
+  conforms: false
+  evidence: No RESO Web API certification. RESO is a North American MLS regime;
+    Australia has no MLS. Case-insensitive greps of the marketing site and the
+    knowledge base for "reso" returned only "resources".
+- id: reso-data-dictionary
+  conforms: false
+  evidence: No RESO Data Dictionary certification at any version; no UPI anywhere in
+    the public surface.
+- id: reaxml
+  conforms: null
+  evidence: >-
+    Agentbox is the agency's portal uploader and its knowledge base documents
+    Portal Exports to realestate.com.au, domain.com.au, allhomes.com.au,
+    commercialrealestate.com.au and others - the Australian listing-distribution
+    seam that REAXML defines. However the string "REAXML" does not appear on
+    https://help.agentboxcrm.com.au/portals, and the vendor makes no explicit REAXML
+    conformance claim, so this is recorded as unasserted rather than true.
+certifications_published: []
+compliance_program: null
+note: No Compliance pointer is emitted - no certification, audit report or trust
+  page was found for Agentbox or Reapit Sales ANZ.

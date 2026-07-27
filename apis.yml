@@ -78,7 +78,41 @@ apis:
     url: https://help.agentboxcrm.com.au/home
   - type: SupportEmail
     url: mailto:sales@agentbox.com.au
+  - type: Authentication
+    url: authentication/agentbox-authentication.yml
+  - type: Conventions
+    url: conventions/agentbox-conventions.yml
+  - type: RateLimits
+    url: rate-limits/agentbox-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/agentbox-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/agentbox-lifecycle.yml
+  - type: Conformance
+    url: conformance/agentbox-conformance.yml
 common:
+- type: DomainSecurity
+  url: security/agentbox-domain-security.yml
+- type: Authentication
+  url: authentication/agentbox-authentication.yml
+- type: Conventions
+  url: conventions/agentbox-conventions.yml
+- type: RateLimits
+  url: rate-limits/agentbox-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/agentbox-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/agentbox-lifecycle.yml
+- type: Conformance
+  url: conformance/agentbox-conformance.yml
+- type: Packages
+  url: packages/agentbox-packages.yml
+- type: ChangeLog
+  url: changelog/agentbox-changelog.yml
+- type: ChangeLog
+  url: https://www.agentbox.com.au/future-releases
+- type: LLMsTxt
+  url: llms/agentbox-llms.txt
 - type: Website
   url: https://www.agentbox.com.au/
 - type: Blog
@@ -101,8 +135,34 @@ common:
   url: https://www.agentbox.com.au/about-us
 - type: Contact
   url: https://www.agentbox.com.au/contact-us
+- type: Support
+  url: https://www.agentbox.com.au/support
+- type: HelpCenter
+  url: https://help.agentboxcrm.com.au/home
+- type: Pricing
+  url: https://www.agentbox.com.au/plans-inclusions
+- type: Login
+  url: https://login.agentboxcrm.com.au/
+- type: Training
+  url: https://www.agentbox.com.au/training
+- type: Resources
+  url: https://www.agentbox.com.au/resources
+- type: CaseStudies
+  url: https://www.agentbox.com.au/case-studies
+- type: Careers
+  url: https://www.agentbox.com.au/careers
+- type: Newsletter
+  url: https://www.agentbox.com.au/subscribe
 - type: Twitter
   url: https://twitter.com/agentboxau
+- type: LinkedIn
+  url: https://www.linkedin.com/company/agentbox/
+- type: Facebook
+  url: https://www.facebook.com/agentboxcrm
+- type: Instagram
+  url: https://www.instagram.com/agentboxau
+- type: YouTube
+  url: https://www.youtube.com/@AgentboxSoftware/featured
 - type: ParentCompany
   url: https://www.reapit.com.au/
 maintainers:

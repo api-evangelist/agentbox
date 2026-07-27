@@ -1,0 +1,136 @@
+generated: '2026-07-26'
+method: searched
+source: live gateway probes plus two independent open-source third-party clients
+  and a vendor-adjacent data-source guide
+evidence_class: >-
+  Agentbox publishes no API reference. Every convention below is either directly
+  observed on the production gateway or read from published third-party client
+  source code that is known to work against it. Nothing here is inferred from a
+  specification, because there is no specification. Confidence is recorded per
+  item.
+sources:
+- url: https://github.com/nad-au/agentbox
+  kind: third-party-client
+  note: TypeScript AgentBoxClient (npm @dbc-tech/agentbox-client), Apache/MIT
+    open source, calls the production host
+- url: https://github.com/real-coder-pty-ltd/stafflink-gf-agentbox
+  kind: third-party-client
+  note: PHP Gravity Forms connector, AgentboxClient.php
+- url: https://docs.smartsign.se/docs/sdm/Publisher%20Guide/Template%20Creator/Data%20Sources/AgentBox
+  kind: third-party-docs
+  note: documents the filter query-string convention
+- url: https://api.agentboxcrm.com.au
+  kind: live-probe
+authentication:
+  style: api-key-headers
+  headers:
+  - X-API-Key
+  - X-Client-ID
+  detail: authentication/agentbox-authentication.yml
+  confidence: high
+versioning:
+  scheme: query-parameter
+  parameter: version
+  current: '2'
+  example: https://api.agentboxcrm.com.au/listings?version=2
+  note: >-
+    Both third-party clients append version=2 to every request; the PHP client
+    hard-codes $this->version = "2" and always terminates the query string with
+    version={version}, the TypeScript client exports AGENT_BOX_API_VERSION = 2 and
+    merges it into searchParams. No version header and no URI path version.
+  confidence: high
+pagination:
+  style: page-number
+  parameters:
+  - name: page
+    default: 1
+  - name: limit
+    default: 20
+  note: Defaults observed in the PHP client's default params block. No published
+    maximum page size; no cursor or link-header pagination observed.
+  confidence: medium
+filtering:
+  style: bracketed-filter-parameters
+  form: filter[<field>]=<value>
+  examples:
+  - filter[type]=Sale
+  note: >-
+    Query-string filters in filter[key]=value form, repeated and joined with '&'.
+    The Smartsign data-source guide states filters "must start with '&' and an
+    additional '&' between each parameter" and gives &filter[type]=Sale.
+  confidence: high
+expansion:
+  style: include-parameter
+  parameter: include
+  note: >-
+    Related objects are pulled into a response with an include query parameter
+    (create_http_query_includes() in the PHP client builds it alongside filters
+    and params). The set of includable relations is not published.
+  confidence: medium
+response_envelope:
+  style: wrapped
+  shape: '{"response": {"<collection>": [ ... ]}}'
+  note: >-
+    The TypeScript client reads data.response.listings, data.response.staffMembers,
+    data.response.inspections, data.response.listingLinks and data.response.notes -
+    a single top-level "response" object keyed by the collection name. Media type
+    application/json.
+  confidence: high
+error_envelope:
+  style: proprietary
+  shape: '{"error": "<message>"}'
+  rfc9457: false
+  note: 'Observed verbatim from the gateway: {"error":"Authorization field missing"}.
+    Backend errors that pass the gateway are not JSON - an unknown path returns an
+    HTML "URL not found" page. See errors/agentbox-problem-types.yml.'
+  confidence: high
+rate_limiting:
+  signalled: true
+  headers:
+  - x-ratelimit-limit
+  - x-ratelimit-remaining
+  - x-ratelimit-reset
+  detail: rate-limits/agentbox-rate-limits.yml
+  confidence: high
+idempotency:
+  supported: false
+  note: >-
+    No idempotency key header, parameter or documented retry contract was found on
+    the gateway, in either third-party client, or anywhere on the public surface.
+    No Idempotency pointer is emitted.
+  confidence: medium
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation header was returned on any probed response.
+  confidence: medium
+observed_resources:
+  note: >-
+    Resource paths seen in working third-party clients. Recorded as observation,
+    NOT as a specification - Agentbox publishes no endpoint reference, so these are
+    not claimed to be complete, stable, or exhaustive, and no OpenAPI has been
+    written from them.
+  paths:
+  - path: /staff
+    methods: [GET]
+    source: https://github.com/nad-au/agentbox
+  - path: /listings
+    methods: [GET]
+    source: https://github.com/nad-au/agentbox
+  - path: /listing-links
+    methods: [GET, POST, PUT, DELETE]
+    source: https://github.com/nad-au/agentbox
+  - path: /inspections
+    methods: [GET]
+    source: https://github.com/nad-au/agentbox
+  - path: /notes
+    methods: [GET, POST, DELETE]
+    source: https://github.com/nad-au/agentbox
+  - path: /enquiry
+    methods: [POST]
+    source: https://github.com/real-coder-pty-ltd/stafflink-gf-agentbox
+    note: enquiry payload attaches a listing id and a contact
+cross_links:
+  authentication: authentication/agentbox-authentication.yml
+  errors: errors/agentbox-problem-types.yml
+  rate_limits: rate-limits/agentbox-rate-limits.yml
+  lifecycle: lifecycle/agentbox-lifecycle.yml

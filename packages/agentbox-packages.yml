@@ -1,0 +1,76 @@
+generated: '2026-07-26'
+method: searched
+source: npm, PyPI, RubyGems, Packagist and GitHub searches on 2026-07-26
+official_sdks: false
+summary: >-
+  Reapit | Agentbox ships no first-party client library in any language, no CLI and
+  no published GitHub organisation for the ANZ product. What exists is a small
+  set of community and integrator-built clients written against the undocumented
+  API. They are listed here because they are the only working reference material a
+  new integrator has - none is official, none is supported by the vendor, and none
+  should be treated as a contract. Registry name collisions were excluded: the
+  npm/GitHub "agentbox" namespace is dominated by unrelated AI-agent sandbox
+  projects (madarco/agentbox, TwillAI/agentbox-sdk, langgenius/dify-agentbox,
+  rcarmo/agentbox and others) and the PyPI "agentbox" package is dotagent's
+  AI sandbox, none of which relate to this real-estate CRM.
+packages:
+- language: typescript
+  registry: npm
+  name: '@dbc-tech/agentbox-client'
+  version: 1.4.8
+  url: https://www.npmjs.com/package/@dbc-tech/agentbox-client
+  install: npm install @dbc-tech/agentbox-client
+  repository: https://github.com/dbc-tech/agentbox
+  mirror: https://github.com/nad-au/agentbox
+  description: AgentBox CRM integration - Node client wrapping staff, listings,
+    listing-links, inspections and notes with X-Client-ID / X-API-Key headers and
+    version=2.
+  official: false
+  maintainer: dbc-tech (third-party integrator)
+- language: typescript
+  registry: npm
+  name: '@dbc-tech/nest-agentbox'
+  version: 1.4.8
+  url: https://www.npmjs.com/package/@dbc-tech/nest-agentbox
+  install: npm install @dbc-tech/nest-agentbox
+  repository: https://github.com/dbc-tech/agentbox
+  description: NestJS module wrapper around @dbc-tech/agentbox-client.
+  official: false
+  maintainer: dbc-tech (third-party integrator)
+- language: php
+  registry: packagist
+  name: realcoder/wp-agentbox
+  url: https://packagist.org/packages/realcoder/wp-agentbox
+  install: composer require realcoder/wp-agentbox
+  repository: https://github.com/real-coder-pty-ltd/stafflink-gf-agentbox
+  description: Gravity Forms to Agentbox connector for WordPress - posts enquiries
+    and contacts to the Agentbox API.
+  official: false
+  maintainer: Real Coder Pty Ltd (third-party integrator)
+- language: typescript
+  registry: github
+  name: Tangerie/deno_agentbox
+  url: https://github.com/Tangerie/deno_agentbox
+  repository: https://github.com/Tangerie/deno_agentbox
+  description: Deno client for the Agentbox API.
+  official: false
+  maintainer: community
+registries_probed:
+- registry: npm
+  result: no first-party package; only third-party integrator clients and unrelated
+    AI-sandbox name collisions
+- registry: pypi
+  result: no Agentbox CRM package (the "agentbox" name is taken by dotagent's AI
+    sandbox)
+- registry: rubygems
+  result: no results
+- registry: packagist
+  result: one third-party WordPress connector
+- registry: maven-central
+  result: none
+- registry: nuget
+  result: none
+- registry: crates.io
+  result: none
+- registry: pkg.go.dev
+  result: none

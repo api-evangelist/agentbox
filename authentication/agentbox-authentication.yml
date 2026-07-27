@@ -1,0 +1,93 @@
+generated: '2026-07-26'
+method: probed
+source: live probes of https://api.agentboxcrm.com.au plus published third-party
+  integration guides
+docs: https://www.agentbox.com.au/integrator-application
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  note: >-
+    Agentbox publishes no OpenAPI, so this profile is not derived from a spec. It
+    is established by direct probe of the production gateway and corroborated by
+    multiple independent third-party integration guides that all describe the same
+    credential triple.
+schemes:
+- name: X-API-Key
+  type: apiKey
+  in: header
+  parameter_name: X-API-Key
+  required: true
+  description: >-
+    The header the Tyk gateway recognises as the authorization field. An anonymous
+    request to any path returns HTTP 401 {"error":"Authorization field missing"};
+    sending X-API-Key with any value advances the request past the gateway to the
+    backend application, which then answers on its own (404 "URL not found" for an
+    unknown path) and attaches x-ratelimit-* headers.
+  evidence:
+  - probe: 'GET https://api.agentboxcrm.com.au/listings?version=2 (anonymous)'
+    status: 401
+    body: '{"error":"Authorization field missing"}'
+  - probe: 'GET https://api.agentboxcrm.com.au/listings?version=2 [X-API-Key: test]'
+    status: 404
+    note: passes the gateway; backend responds with x-ratelimit-limit /
+      x-ratelimit-remaining / x-ratelimit-reset
+- name: X-Client-ID
+  type: apiKey
+  in: header
+  parameter_name: X-Client-ID
+  required: true
+  description: >-
+    Per-agency client identifier sent alongside X-API-Key. Alone it does not
+    satisfy the gateway - a request carrying only X-Client-ID is still rejected
+    401 - so it is an application-level tenant identifier rather than the gateway
+    credential.
+  evidence:
+  - probe: 'GET https://api.agentboxcrm.com.au/ [X-Client-ID: test]'
+    status: 401
+  - source: https://github.com/nad-au/agentbox
+    kind: third-party-client
+    note: sends both X-Client-ID and X-API-Key on every request
+  - source: https://github.com/real-coder-pty-ltd/stafflink-gf-agentbox
+    kind: third-party-client
+    note: same header pair plus Content-Type/Accept application/json
+- name: Office ID
+  type: tenant-identifier
+  in: credential-issuance
+  required: true
+  description: >-
+    Issued with the API Key and Client ID, scoping the credential to one agency
+    office's data. Not observed as a request header in the public third-party
+    clients; it is part of the credential triple support issues per office.
+  evidence:
+  - source: https://auctionslive.com/knowledge-hub/obtaining-reapit-agentbox-api-credentials
+    kind: third-party-docs
+    note: 'instructs the agency to email salessupportanz@reapit.com and request all
+      three: API Key, Client ID and Office ID'
+credential_issuance:
+  self_serve: false
+  gate: application-approval
+  steps:
+  - Third party completes the Reapit Sales Integrator Application at
+    https://www.agentbox.com.au/integrator-application and is reviewed by the vendor.
+  - Each agency customer separately emails Reapit | Agentbox support
+    (salessupportanz@reapit.com, or support@agentbox.com.au for portal feeds) to
+    have credentials issued for its own office.
+  contacts:
+  - salessupportanz@reapit.com
+  - support@agentbox.com.au
+oauth:
+  supported: false
+  evidence:
+  - No /.well-known/openid-configuration or /.well-known/oauth-authorization-server
+    is served on any host (see well-known/agentbox-well-known.yml).
+  - No authorization or token endpoint is documented anywhere on the public surface.
+scopes:
+  published: false
+  note: Key-based auth with per-office credential issuance; no OAuth scope surface
+    exists, so no scopes/ artifact is emitted.

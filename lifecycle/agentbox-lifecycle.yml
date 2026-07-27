@@ -1,0 +1,48 @@
+generated: '2026-07-26'
+method: searched
+source: https://www.agentbox.com.au/future-releases plus live probes
+versioning:
+  scheme: query-parameter
+  parameter: version
+  current: '2'
+  docs: null
+  note: >-
+    Every working third-party client pins version=2 on the query string. The vendor
+    publishes no versioning policy, no version history and no statement about how
+    long a version is supported.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: No RFC 8594 Sunset/Deprecation headers were observed and no deprecation or
+    end-of-life policy is published for the API.
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA or uptime commitment is published on the marketing site, the plans
+    page or the knowledge base.
+status_page: null
+status_page_note: >-
+  No Agentbox status page exists. status.agentbox.com.au does not resolve,
+  status.agentboxcrm.com.au returns 404, and agentbox.statuspage.io resolves to
+  Atlassian's own Statuspage marketing page (an unclaimed subdomain), not a status
+  page. The parent group runs https://status.reapit.com, but its components are
+  "Agency Cloud", "Mobile" and "Foundations: Platform" - Agentbox / Reapit Sales
+  ANZ is not listed there, so it is not claimed as this provider's status page.
+product_changelog:
+  url: https://www.agentbox.com.au/future-releases
+  scope: product
+  note: Dated product release notes for the CRM, Websites, Proposals, Mobile App and
+    Analytics. It covers the product, not the API - no API change is announced
+    there. Captured in changelog/agentbox-changelog.yml.
+roadmap: null
+roadmap_note: >-
+  Despite the page slug, /future-releases publishes shipped releases in reverse
+  chronological order, not forward-looking plans. No roadmap is published, so no
+  Roadmap pointer is emitted.
+deprecated_operations: []
+support:
+  api_support_contact: salessupportanz@reapit.com
+  portal_feed_contact: support@agentbox.com.au
+  help_centre: https://help.agentboxcrm.com.au/home

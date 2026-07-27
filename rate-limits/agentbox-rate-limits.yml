@@ -1,0 +1,35 @@
+generated: '2026-07-26'
+method: probed
+source: live probes of https://api.agentboxcrm.com.au on 2026-07-26
+published: false
+signalled: true
+summary: >-
+  Agentbox does not publish a rate-limit policy anywhere on its public surface, but
+  the production gateway does signal rate limiting per API key. A request carrying
+  an X-API-Key header passes the Tyk gateway and the response returns the standard
+  x-ratelimit-* header triple. Anonymous requests are rejected at the gateway
+  before any quota is evaluated, so no header is returned and no numeric quota can
+  be read without an issued credential.
+headers:
+- name: x-ratelimit-limit
+  observed_value: '-1'
+  note: '-1 is returned to an unissued/placeholder key; the real per-key ceiling is
+    only visible with credentials issued by Reapit | Agentbox support.'
+- name: x-ratelimit-remaining
+  observed_value: '0'
+- name: x-ratelimit-reset
+  observed_value: '0'
+scope: per-api-key
+gateway: 'Tyk (x-generator: tyk.io)'
+limits: []
+evidence:
+- probe: 'GET https://api.agentboxcrm.com.au/listings?version=2 [X-API-Key: test]'
+  status: 404
+  headers_returned:
+  - 'x-ratelimit-limit: -1'
+  - 'x-ratelimit-remaining: 0'
+  - 'x-ratelimit-reset: 0'
+- probe: GET https://api.agentboxcrm.com.au/listings?version=2 (anonymous)
+  status: 401
+  note: no rate-limit headers - rejected at the gateway auth check
+docs: null
