@@ -1,0 +1,14 @@
+{
+  "repo": "agentbox",
+  "feeds": [
+    {
+      "source": "https://www.agentbox.com.au/",
+      "feed_url": "https://www.agentbox.com.au/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-01T15:49:00Z"
+}
