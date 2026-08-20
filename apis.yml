@@ -36,6 +36,17 @@ accessModel:
   method: probed
 image: https://agentboxcdn.com.au/assets/img/agentbox/favicon-192x192.png
 tags:
+- Real-Estate
+- Australia
+- Property Listings
+- PropTech
+- CRM
+- REAXML
+- Portal Feeds
+- Rentals
+- Commercial Real Estate
+- New Zealand
+tags_raw:
 - Real Estate
 - Australia
 - Property Listings
@@ -67,6 +78,11 @@ apis:
   humanURL: https://www.agentbox.com.au/integrator-application
   baseURL: https://api.agentboxcrm.com.au
   tags:
+  - Real-Estate
+  - CRM
+  - Property Listings
+  - Australia
+  tags_raw:
   - Real Estate
   - CRM
   - Property Listings
