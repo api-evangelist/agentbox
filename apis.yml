@@ -47,7 +47,7 @@ accessModel:
   method: probed
 image: https://agentboxcdn.com.au/assets/img/agentbox/favicon-192x192.png
 tags:
-- Real-Estate
+- Real Estate
 - Australia
 - Property Listings
 - PropTech
@@ -68,6 +68,7 @@ tags_raw:
 - Rentals
 - Commercial Real Estate
 - New Zealand
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
@@ -89,7 +90,7 @@ apis:
   humanURL: https://www.agentbox.com.au/integrator-application
   baseURL: https://api.agentboxcrm.com.au
   tags:
-  - Real-Estate
+  - Real Estate
   - CRM
   - Property Listings
   - Australia
@@ -98,6 +99,7 @@ apis:
   - CRM
   - Property Listings
   - Australia
+  - Real-Estate
   properties:
   - type: Onboarding
     url: https://www.agentbox.com.au/integrator-application
