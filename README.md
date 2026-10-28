@@ -1,4 +1,4 @@
-# Agentbox (agentbox)
+# Agentbox
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,72 +66,95 @@
 
 Agentbox - rebranded Reapit Sales after its acquisition by the UK-headquartered proptech group Reapit - is an Australian real estate CRM and sales platform used by residential sales agencies across Australia and New Zealand, covering contacts and prospecting, listing management, appraisals, vendor management, marketing, agency websites, and a mobile agent app. Its position in the value chain is the agency system of record and, critically, the portal uploader - Agentbox is the system that pushes an agency's for-sale and for-rent listings out to realestate.com.au, domain.com.au, allhomes, commercialrealestate.com.au and dozens of other Australian portals, which in the Australian market is the REAXML feed seam rather than an MLS. Its API posture is honest but closed - a production API gateway is live at api.agentboxcrm.com.au (Tyk, HTTP 401 "Authorization field missing" to anonymous callers, authenticated with an X-API-Key header alongside a Client ID and Office ID), but there is no public developer portal, no published reference, and no downloadable machine-readable contract. Access is application-approval only - every third party must complete the Reapit Sales Integrator Application and be reviewed before an agency's API Key, Client ID and Office ID are issued by support. There is no RESO Web API or Data Dictionary certification, no OData $metadata document, and no Universal Property Identifier - RESO is a North American MLS regime with no presence in this Australian vendor's surface - and no open data is published.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/agentbox/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/agentbox/refs/heads/main/apis.yml)
+**Areas:** Real Estate · Australia · Property Listings · PropTech · CRM · REAXML · Portal Feeds · Rentals · Commercial Real Estate · New Zealand
 
-## Tags
+## Agentbox on APIs.io
 
-- Real Estate
-- Australia
-- Property Listings
-- PropTech
-- CRM
-- REAXML
-- Portal Feeds
-- Rentals
-- Commercial Real Estate
-- New Zealand
+Everything profiled for Agentbox is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/agentbox/](https://apis.io/providers/agentbox/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+- [Agentbox API](https://apis.io/apis/agentbox/agentbox-api/) — The production Agentbox (Reapit Sales) REST API used by approved integration partners to read and write agency CRM data - contacts, listings, properties,…
 
-## APIs
+### Published properties
 
-### Agentbox API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The production Agentbox (Reapit Sales) REST API used by approved integration partners to read and write agency CRM data - contacts, listings, properties, staff and offices. The host is live and fronted by a Tyk gateway - an anonymous request returns HTTP 401 with `{"error":"Authorization field missing"}`, and supplying an `X-API-Key` header advances the request past the gateway, confirming API-key authentication. Third-party integration guides (Domo, Auctions Live, WordPress connectors) consistently describe the same credential triple - API Key, Client ID and Office ID - issued per agency office by Reapit Sales support. No public API reference, OpenAPI/Swagger document or Postman collection is published - every documentation path probed on the gateway returned 401 or 404 - so no machine-readable contract could be harvested. Access requires completing the Integrator Application and being approved.
+#### Security (2)
 
-- **Human URL:** [https://www.agentbox.com.au/integrator-application](https://www.agentbox.com.au/integrator-application)
-- **Base URL:** `https://api.agentboxcrm.com.au`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Agentbox Authentication](https://apis.io/security/agentbox/agentbox-authentication/)
+- [Agentbox Domain Security](https://apis.io/security/agentbox/agentbox-domain-security/)
 
-- Real Estate
-- CRM
-- Property Listings
-- Australia
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Onboarding](https://www.agentbox.com.au/integrator-application)
-- [Support Page](https://help.agentboxcrm.com.au/home)
-- [Support Email](mailto:sales@agentbox.com.au)
+- [Agentbox Rate Limits](https://apis.io/rate-limits/agentbox/agentbox-rate-limits/)
 
-## Access
+## Where to find this API
 
-- **Access gate:** `application-approval` - the Integrator Application is reviewed by Reapit Sales before any integration is approved, and each agency customer must separately request its office's API Key, Client ID and Office ID from support.
-- **Auth model:** API key (`X-API-Key`) on a Tyk gateway, paired with a Client ID and Office ID. No OAuth 2.0 or OpenID Connect discovery document is served.
-- **RESO posture:** No RESO reference found - no Web API certification, no Data Dictionary certification, no `$metadata`, no UPI. Australia has no MLS; listing distribution runs on REAXML into realestate.com.au and Domain.
-- **Open data:** None.
-- **Home market:** Australia (and New Zealand).
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.agentbox.com.au/)
+- [Documentation](https://help.agentboxcrm.com.au/reapit-integrations)
+- [Pricing](https://www.agentbox.com.au/plans-inclusions)
+- [Support](https://www.agentbox.com.au/support)
+- [Changelog](https://www.agentbox.com.au/future-releases)
 - [Blog](https://www.agentbox.com.au/blog)
-- [Support Page](https://help.agentboxcrm.com.au/home)
-- [Documentation - Reapit Integrations](https://help.agentboxcrm.com.au/reapit-integrations)
-- [Documentation - Portals](https://help.agentboxcrm.com.au/portals)
-- [Onboarding - Integrator Application](https://www.agentbox.com.au/integrator-application)
-- [Plans](https://www.agentbox.com.au/plans-inclusions)
-- [Terms of Service](https://www.agentbox.com.au/terms-conditions)
-- [Privacy Policy](https://www.agentbox.com.au/privacy)
-- [About](https://www.agentbox.com.au/about-us)
-- [Contact](https://www.agentbox.com.au/contact-us)
-- [Twitter](https://twitter.com/agentboxau)
-- [Parent Company](https://www.reapit.com.au/)
+- [Terms of service](https://www.agentbox.com.au/terms-conditions)
+- [Privacy policy](https://www.agentbox.com.au/privacy)
 
-## Maintainers
+## API Evangelist rating
 
-- Kin Lane <kin@apievangelist.com>
+**Kin Score 21.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 38.2 |
+
+**Agent readiness 7.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/agentbox/](https://apis.io/providers/agentbox/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Agentbox: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/agentbox/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
